@@ -1,15 +1,14 @@
 # PROBLEM 1: STOCK SCREENER
+# Plot multiple stocks in the same graph
 from pandas_datareader import data
 from datetime import datetime
 import numpy as np
 from matplotlib.dates import strpdate2num
-import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import time
+from matplotlib import style
+style.use('ggplot')
 
-tickers = {'GOGL', 'AAPL'} #, 'TSLA', 'YHOO'}
-
+tickers = {'AAPL', 'TSLA', 'YHOO', 'MOBL'}
 
 def create_stock_record(ticker, source):
     start_date = datetime(2014, 6, 12)
@@ -54,10 +53,9 @@ def graph_data():
             converter = {0: bytespdate2num('%Y-%m-%d')}
             date_p, open_p, high_p, low_p, close_p, volume_p = np.loadtxt(stock_file, delimiter=',', unpack=True,
                                                                           converters=converter, skiprows=1)
-            date_p = np.flipud(date_p)
-            close_p = np.flipud(close_p)
             print('file : {} normalization completed'.format(stock_file))
-            plt.plot(date_p, close_p, label=stock)
+
+            plt.plot_date(date_p, close_p, '-', label=stock)
     except Exception as ex:
         print('Failed to load file {}'.format(ex))
 
