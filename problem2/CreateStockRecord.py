@@ -14,7 +14,7 @@ def create_stock_record(ticker, source):
     start_date = datetime(2014, 6, 12)
     end_date = datetime.today()
     mobl = data.DataReader(ticker, source, start_date, end_date)
-    file_name = 'problem1/' + ticker + '.csv'
+    file_name = 'problem2/' + ticker + '.csv'
     mobl.to_csv(file_name)
     print('record created for ticker : {} with file name {}'.format(ticker, file_name))
     return
@@ -48,7 +48,7 @@ def bytespdate2num(fmt, encoding='ascii'):
 def graph_data():
     try:
         for stock in tickers:
-            stock_file = 'problem1/' + stock + '.csv'
+            stock_file = 'problem2/' + stock + '.csv'
             print('Plotting for file : {}'.format(stock_file))
             converter = {0: bytespdate2num('%Y-%m-%d')}
             date_p, open_p, high_p, low_p, close_p, volume_p = np.loadtxt(stock_file, delimiter=',', unpack=True,
